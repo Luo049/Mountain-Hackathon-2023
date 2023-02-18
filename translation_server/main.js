@@ -78,7 +78,9 @@ async function recurseTranslate(iterations, base) {
 	console.log("RESU: ", currLan, 'en', resultant[0].translations[0].text);
 	return resultant[0].translations[0].text
 }
-
+app.get('/', (req,res) =>{
+	res.json("Send a request by /:<translation_string>")
+});
 app.get('/:translate', async (req, res) => {
 	const text = req.params.translate
 	var result = await recurseTranslate(10, text);
