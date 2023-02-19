@@ -1,0 +1,26 @@
+{
+  "name": "infiniteblockmadnessserver",
+  "version": "1.0.0",
+  "description": "Code to manage data fed in and out from the main InfiniteBlockMadness app",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kennyzhang620/InfiniteBlockMadnessServer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kennyzhang620/InfiniteBlockMadnessServer/issues"
+  },
+  "homepage": "https://github.com/kennyzhang620/InfiniteBlockMadnessServer#readme",
+  "dependencies": {
+    "axios": "^1.3.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "node-fetch": "^3.3.0",
+    "uuid": "^9.0.0"
+  }
+}
