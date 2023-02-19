@@ -1,3 +1,37 @@
+function senddata(emo,txt) {
+	var txtFile = new XMLHttpRequest();
+	    txtFile.open("POST", "/plantscanner-api/image64_test");
+
+	    txtFile.setRequestHeader("Accept", "application/json");
+	    txtFile.setRequestHeader("Content-Type", "application/json");
+
+	    let image_encoded = `{
+	     "emotion": "${emo}",
+		 "textString": "${txt}"
+	    }`;
+	    txtFile.onload = function (e) {
+	        if (txtFile.readyState === 4) {
+	            if (txtFile.status === 200) {
+	                var csvData = txtFile.responseText;
+
+	                console.log(csvData, "Response");
+
+
+	            }
+	            else {
+	                console.error(txtFile.statusText);
+	            }
+	        }
+	    };
+
+	    txtFile.onerror = function (e) {
+	        console.error(txtFile.statusText);
+	    };
+
+	    txtFile.send(image_encoded);
+}
+
+
 document.addEventListener('DOMContentLoaded', function(){
     //when the user clicks the submit button in the popup.html
     document.getElementById('button').addEventListener('click', onclick, false)

@@ -1,4 +1,20 @@
+const http = require('http');
+var express = require('express');
+var bodyParser = require('body-parser');
+const cors = require("cors") //cross-origin resource sharing
+const axios = require('axios')
+const url = require('url')
+var app = express();
 
+const path = require('path')
+const PORT = process.env.PORT || 5010;
+app.use(express.static(path.join(__dirname, 'public')));
+app.set('views', path.join(__dirname, 'views'));
+
+app.set('view engine', 'ejs');
+//app.use(express.json()); 
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 
 const { Configuration, OpenAIApi } = require("openai");
@@ -44,12 +60,21 @@ async function oppositeMood (moodInput) {
 
 // export default Chat
 
-(async () => {
-    input = "i want food"
-    mood = "angry"
+app.post('/chatrecvm', async (req, res) => {
+	let emotion = req.body.emotion
+	let txt = req.body.textString
+	
     response = (await responseGenerator(input, mood))
     console.log(response)
-})()
+	
+});
+app.listen(port, () => {
+    console.log(`Example app listening at http://localhost:${port}`)
+});
+
+app.use((req, res) => {
+    res.status(404);
+});
 
 // while(1){ 
 
