@@ -2,6 +2,7 @@
 module.export = {responseGenerator}
 
 const { Configuration, OpenAIApi } = require("openai");
+const input = require('content') 
 require('dotenv').config()
 
 const configuration = new Configuration({
