@@ -22,7 +22,7 @@ const { Configuration, OpenAIApi } = require("openai");
 require('dotenv').config()
 
 const configuration = new Configuration({
-    apiKey: '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',
+    apiKey: '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',
 });
 const openai = new OpenAIApi(configuration);
 
@@ -122,11 +122,12 @@ app.post('/chatrecvm', async (req, res) => {
     response = (await responseGenerator(txt, emotion))
 	var out = await translate_arr(response);
     resdata = out.data
+	
+	email('',resdata[(resdata.length - 1)])
 });
 
 app.get('/chatrecvm', (req,res) => {
 	res.json(resdata);
-	res.set({})
 })
 
 app.listen(PORT, () => {
