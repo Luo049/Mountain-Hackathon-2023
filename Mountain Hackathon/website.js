@@ -15,13 +15,28 @@ let textbox = document.getElementById('search');
 
 function Generate_message(input_text) {
 
-  var message_list = document.getElementsByClassName("messages");
+  var message_list = document.getElementsByClassName("message_input");
 
   if (message_item != null);
 
     var message_item  = message_list[0];
 
-    var x = `<div id = 'message_bubble'> ${input_text} </div>`
+    var x = `<div id = 'message_bubble' 
+              style= "border-radius: 50px;
+                      padding: 5px;
+
+                      font-size: 20px;
+                      font-family: Arial;
+
+                      width: max-content;
+
+                      border: solid;
+                      
+                      justify-content: right;
+                      align-item: right:
+                      margin-top:
+                      background-color: rgb(255, 255, 255);"
+                      >${input_text} </div>`
     
     var message_node = document.createRange().createContextualFragment(x);
     message_item.appendChild(message_node);
