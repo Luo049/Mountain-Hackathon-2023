@@ -19,12 +19,44 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+function sendmail(addr) {
+	const nodemailer = require("nodemailer")
+
+	let transporter = nodemailer.createTransport({
+	    service: "gmail",
+	    auth:{
+	        user:"projectplantscan@gmail.com",
+	        pass:"doagmudeebbdyxnh",
+	    },
+	    tls:{
+	        rejectUnauthorized: false,
+	    }
+	})
+
+	let mailOptions = {
+	    from: "projectplantscan@gmail.com",
+	    //need to change to: email to be able to append email from src folder
+	    to: addr,
+	    subject:"Your CHATGPT Reply",
+	    //need to append text from the last line of the translator 
+	    text: resdata[resdata.length - 1],
+	}
+
+	transporter.sendMail(mailOptions, function(err, success){
+	    if(err){
+	        console.log(err)
+	    }
+	    else{
+	        console.log("email sent successfully!")
+	    }
+	})
+}
 
 const { Configuration, OpenAIApi } = require("openai");
 require('dotenv').config()
 
 const configuration = new Configuration({
-    apiKey: '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',
+    apiKey: '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',
 });
 const openai = new OpenAIApi(configuration);
 
@@ -63,34 +95,6 @@ async function oppositeMood (moodInput) {
 
 // export default Chat
 
-async function email(addr, dataStr) {
-    var results = null;
-	let endpoint = "http://localhost:8080/";
-	
-    // arguments to send to api
-	const transdata = {
-        baseURL: endpoint,
-        method: 'post',
-        headers: {
-            'Content-type': 'application/json',
-			'Access-Control-Allow-Origin':'*'
-        },
-        data: [{
-			'email': addr,
-            'text': dataStr
-        }],
-        responseType: 'json'
-    }
-	
-    await axios(transdata).then(apiRes => {
-        results = apiRes.data;
-    }).catch(error => {
-        console.error('Error: ', error)
-    });
-
-    return results;
-}
-
 async function translate_arr(dataStr) {
 
 	const endPt = 'http://localhost:3000/list/' + dataStr
@@ -125,12 +129,12 @@ app.post('/chatrecvm', async (req, res) => {
 	var out = await translate_arr(response);
     resdata = out.data
 	
-	email('',resdata[(resdata.length - 1)])
 });
 
-app.get('/addmail/:email/', async (req, res) => {
+app.get('/addmail/:email', async (req, res) => {
 	email = req.params.email
-
+	sendmail(email)
+	console.log("Test!");
 });
 
 app.get('/chatrecvm', (req,res) => {

@@ -8,13 +8,30 @@ let textbox = document.getElementById('search');
 
           Generate_message(textbox.value);
 
-          textbox.value = '';
+		  sendmail(textbox.value)
           //!-- Disappears text in textbox -->
-
+		  ind = translations.length - 1
+		  timer2 = setInterval(render, 1000)
+		  
+		  textbox.value = '';
         }
 
     });
 
+
+function sendmail(email) {
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+	    if (this.readyState == 4 && this.status == 200) {
+	       // Typical action to be performed when the document is ready:
+	       translations =  JSON.parse(xhttp.responseText);
+		   intervalM--;
+	    }
+	};
+	xhttp.open("GET", "http://localhost:5010/addmail/" + email);
+	xhttp.send();
+	
+}
 function Generate_message(input_text) {
 
   var message_list = document.getElementsByClassName("message_input");
@@ -63,8 +80,6 @@ function callHome_30_s() {
 	}
 	else {
 		clearInterval(timer);
-		ind = translations.length - 1
-		timer2 = setInterval(render, 1000)
 	}
 	
 	console.log(translations);
