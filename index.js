@@ -16,8 +16,10 @@ let transporter = nodemailer.createTransport({
 
 let mailOptions = {
     from: "projectplantscan@gmail.com",
+    //need to change to: email to be able to append email from src folder
     to: "boomworldfx720@gmail.com",
-    subject:"testing",
+    subject:"Your CHATGPT Reply",
+    //need to append text from the last line of the translator 
     text: "poopy kkkkkkkkkkk",
 }
 
