@@ -63,7 +63,7 @@ async function translate(src, dst, dataStr) {
 }
 
 async function recurseTranslate(iterations, base) {
-	let langPool = ['ja', 'lzh', 'ko', 'tlh-Latn', 'ar']
+	let langPool = ['ja', 'lzh', 'ko', 'fa', 'ar', 'vi', 'cy', 'es', 'sr-Cyrl', 'pa']
 	var resultant = base
 	var currLan = 'en'
 	for (var i=0;i<iterations;i++) {
@@ -78,13 +78,47 @@ async function recurseTranslate(iterations, base) {
 	console.log("RESU: ", currLan, 'en', resultant[0].translations[0].text);
 	return resultant[0].translations[0].text
 }
+
+async function recurseTranslate_app(iterations, base) {
+	let langPool = ['ja', 'lzh', 'ko', 'fa', 'ar', 'vi', 'cy', 'es', 'sr-Cyrl', 'pa']
+	var resultant = [base]
+	var currLan = 'en'
+	for (var i=0;i<iterations;i++) {
+		const lan2 = langPool[Math.floor(Math.random() * langPool.length)]
+		var res = await translate(currLan, lan2, resultant[resultant.length - 1])
+		res = res[0].translations[0].text
+		resultant.push(res);
+		currLan = lan2
+	}
+	
+	var res = await translate(currLan, 'en', resultant[resultant.length - 1])
+	res = res[0].translations[0].text
+	resultant.push(res);
+	
+	return resultant;
+}
+
 app.get('/', (req,res) =>{
-	res.json("Send a request by /:<translation_string>")
+	res.json("Send a request by /list:<translation_string>, /combine:<translation_string>, or /singular:<source>:<dest>:<translation_string>")
 });
-app.get('/:translate', async (req, res) => {
+app.get('/list/:translate', async (req, res) => {
+	const text = req.params.translate
+	var res2 = await recurseTranslate_app(10,text);
+	res.json(res2);
+});
+app.get('/combine/:translate', async (req, res) => {
 	const text = req.params.translate
 	var result = await recurseTranslate(10, text);
 	res.json(result);
+});
+
+app.get('/singular/:slang/:dstlang/:srctxt', async (req, res) => {
+	const l1 = req.params.slang
+	const l2 = req.params.dstlang
+	const text = req.params.srctxt
+	
+	var result = await translate(l1, l2, text)
+	res.json(result[0].translations[0].text);
 });
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
