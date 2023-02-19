@@ -5,6 +5,7 @@ const cors = require("cors") //cross-origin resource sharing
 const axios = require('axios')
 const url = require('url')
 var app = express();
+var resdata = []
 
 const path = require('path')
 const PORT = process.env.PORT || 5010;
@@ -21,7 +22,7 @@ const { Configuration, OpenAIApi } = require("openai");
 require('dotenv').config()
 
 const configuration = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY,
+    apiKey: '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',
 });
 const openai = new OpenAIApi(configuration);
 
@@ -64,12 +65,17 @@ app.post('/chatrecvm', async (req, res) => {
 	let emotion = req.body.emotion
 	let txt = req.body.textString
 	
-    response = (await responseGenerator(input, mood))
+	console.log("Passthru: ", emotion, txt)
+    response = (await responseGenerator(txt, emotion))
     console.log(response)
 	
 });
-app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
+
+app.get('/chatrecvm', (req,res) => {
+	res.json("NULL");
+})
+app.listen(PORT, () => {
+    console.log(`Example app listening at http://localhost:${PORT}`)
 });
 
 app.use((req, res) => {

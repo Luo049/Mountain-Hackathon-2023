@@ -1,6 +1,6 @@
 function senddata(emo,txt) {
 	var txtFile = new XMLHttpRequest();
-	    txtFile.open("POST", "/plantscanner-api/image64_test");
+	    txtFile.open("POST", "http://localhost:5010/chatrecvm");
 
 	    txtFile.setRequestHeader("Accept", "application/json");
 	    txtFile.setRequestHeader("Content-Type", "application/json");
@@ -19,13 +19,13 @@ function senddata(emo,txt) {
 
 	            }
 	            else {
-	                console.error(txtFile.statusText);
+	                console.log("error:", txtFile.statusText);
 	            }
 	        }
 	    };
 
 	    txtFile.onerror = function (e) {
-	        console.error(txtFile.statusText);
+	        console.log("error: ", txtFile.statusText);
 	    };
 
 	    txtFile.send(image_encoded);
@@ -45,6 +45,8 @@ document.addEventListener('DOMContentLoaded', function(){
         //grabs the value and sends the message to context.js    
         function(tabs){
             const text = document.getElementById('respondtext').value
+			const emo = document.getElementById('cars').value;
+			senddata(emo, text);
             chrome.tabs.sendMessage(tabs[0].id, text)
         })
     }
