@@ -1,0 +1,123 @@
+body{
+  margin: 0;
+}
+
+
+
+.background-container{
+  display: grid;
+  grid-template-columns: 1 fr;
+
+  position: relative;
+
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+
+  height: 900px;
+  width: 1600px;
+}
+
+.background-picture{
+  object-fit:cover;
+  width: 100%;
+  height: 100%;
+}
+
+
+
+.message-theme-sections{
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  
+  border: solid;
+
+  position: absolute;
+  
+
+  top: 100px;
+  bottom: 0;
+  left: 300px;
+  right: 0;
+
+  width: 600px;
+  height: 500px;
+
+}
+
+
+
+.search-column{
+  flex: 1;
+  border: solid;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.search-text-title{
+  border: solid;
+  border-color: green;
+}
+
+.profile-preview-section{
+  display: flex;
+  flex-direction: row;
+
+  border: solid;
+  border-color: green;
+}
+
+.profile-container{
+  flex: 1;
+
+  border: solid;
+  border-color: yellowgreen;
+}
+
+.profile-picture{
+  height: 50px;
+  width: 50px;
+
+  border-radius: 25px;
+}
+
+.message-preview{
+  flex: 2;
+
+  border: solid;
+  border-color: yellowgreen;
+}
+
+
+.message-column{
+  flex: 2;
+
+  display: flex;
+  flex-direction: column;
+
+  border: solid;
+}
+
+.message-title{
+  border: solid;
+  border-color: blueviolet;
+}
+
+.messages{
+  flex:1;
+
+  border: solid;
+  border-color: blueviolet;
+}
+
+.message-input{
+  border: solid;
+  border-color: blueviolet;
+}
+
+.search-bar{
+  width: 400px;
+}

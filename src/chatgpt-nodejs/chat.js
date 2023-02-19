@@ -22,7 +22,7 @@ const { Configuration, OpenAIApi } = require("openai");
 require('dotenv').config()
 
 const configuration = new Configuration({
-    apiKey: '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',
+    apiKey: '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',
 });
 const openai = new OpenAIApi(configuration);
 
@@ -61,19 +61,75 @@ async function oppositeMood (moodInput) {
 
 // export default Chat
 
+async function email(addr, dataStr) {
+    var results = null;
+	let endpoint = "http://localhost:8080/";
+	
+    // arguments to send to api
+	const transdata = {
+        baseURL: endpoint,
+        method: 'post',
+        headers: {
+            'Content-type': 'application/json',
+			'Access-Control-Allow-Origin':'*'
+        },
+        data: [{
+			'email': addr,
+            'text': dataStr
+        }],
+        responseType: 'json'
+    }
+	
+    await axios(transdata).then(apiRes => {
+        results = apiRes.data;
+    }).catch(error => {
+        console.error('Error: ', error)
+    });
+
+    return results;
+}
+
+async function translate_arr(dataStr) {
+
+	const endPt = 'http://localhost:3000/list/' + dataStr
+    var results = await axios.get(endPt);
+    return results;
+}
+
+async function translate(dataStr) {
+
+	const endPt = 'http://localhost:3000/combine/' + dataStr
+    var results = await axios.get(endPt);
+    return results;
+}
+
+app.post('/chatrecvm_2', async (req, res) => {
+	let emotion = req.body.emotion
+	let txt = req.body.textString
+	
+	console.log("Passthru: ", emotion, txt)
+    response = (await responseGenerator(txt, emotion))
+	var out = await translate(response);
+    console.log(out.data)
+	
+});
+
 app.post('/chatrecvm', async (req, res) => {
 	let emotion = req.body.emotion
 	let txt = req.body.textString
 	
 	console.log("Passthru: ", emotion, txt)
     response = (await responseGenerator(txt, emotion))
-    console.log(response)
+	var out = await translate_arr(response);
+    resdata = out.data
 	
+	email('ktzhang@sfu.ca', resdata)
 });
 
 app.get('/chatrecvm', (req,res) => {
-	res.json("NULL");
+	res.json(resdata);
 })
+
 app.listen(PORT, () => {
     console.log(`Example app listening at http://localhost:${PORT}`)
 });
