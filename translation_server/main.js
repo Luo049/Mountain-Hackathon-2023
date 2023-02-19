@@ -103,12 +103,12 @@ app.get('/', (req,res) =>{
 });
 app.get('/list/:translate', async (req, res) => {
 	const text = req.params.translate
-	var res2 = await recurseTranslate_app(10,text);
+	var res2 = await recurseTranslate_app(5,text);
 	res.json(res2);
 });
 app.get('/combine/:translate', async (req, res) => {
 	const text = req.params.translate
-	var result = await recurseTranslate(10, text);
+	var result = await recurseTranslate(5, text);
 	res.json(result);
 });
 

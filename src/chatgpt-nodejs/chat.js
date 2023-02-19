@@ -7,6 +7,8 @@ const url = require('url')
 var app = express();
 var resdata = []
 
+var email = ""
+
 const path = require('path')
 const PORT = process.env.PORT || 5010;
 app.use(express.static(path.join(__dirname, 'public')));
@@ -22,7 +24,7 @@ const { Configuration, OpenAIApi } = require("openai");
 require('dotenv').config()
 
 const configuration = new Configuration({
-    apiKey: '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',
+    apiKey: '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',
 });
 const openai = new OpenAIApi(configuration);
 
@@ -122,11 +124,17 @@ app.post('/chatrecvm', async (req, res) => {
     response = (await responseGenerator(txt, emotion))
 	var out = await translate_arr(response);
     resdata = out.data
+	
+	email('',resdata[(resdata.length - 1)])
+});
+
+app.get('/addmail/:email/', async (req, res) => {
+	email = req.params.email
+
 });
 
 app.get('/chatrecvm', (req,res) => {
 	res.json(resdata);
-	res.set({})
 })
 
 app.listen(PORT, () => {

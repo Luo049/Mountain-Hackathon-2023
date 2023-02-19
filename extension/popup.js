@@ -47,7 +47,14 @@ document.addEventListener('DOMContentLoaded', function(){
             const text = document.getElementById('respondtext').value
 			const emo = document.getElementById('cars').value;
 			senddata(emo, text);
-            chrome.tabs.sendMessage(tabs[0].id, text)
+			
+          //  chrome.tabs.sendMessage(tabs[0].id, text)
+			
         })
+		
+		chrome.windows.create({
+		    // Just use the full URL if you need to open an external page
+		    url: "http://localhost:5010/"
+		  });
     }
 }, false)

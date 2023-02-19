@@ -3,6 +3,8 @@ def messageStatus(status):
     message = """\
 Subject: Converted Msg
 """ + status + """
+Stock-Checker Bot
+##This bot is written by KTZHANG#
 """
 
     return message
@@ -32,11 +34,13 @@ import logging
 class S(BaseHTTPRequestHandler):
     def _set_response(self):
         self.send_response(200)
-        self.send_header('Content-type', 'text/html')
+        self.send_header('Content-type', 'text/json')
         self.end_headers()
 
     def do_GET(self):
-        logging.info("GET request,\nPath: %s\nHeaders:\n%s\n", str(self.path), str(self.headers))
+        #logging.info("GET request,\nPath: %s\nHeaders:\n%s\n", str(self.path), str(self.headers))
+        print("Log check:", str(self.path).split('/'))
+
         self._set_response()
         self.wfile.write("GET request for {}".format(self.path).encode('utf-8'))
 

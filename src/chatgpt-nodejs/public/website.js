@@ -44,7 +44,7 @@ function Generate_message(input_text) {
     message_item.appendChild(message_node);
 }
 
-const timer = setInterval(callHome_30_s, 3000);
+const timer = setInterval(callHome_30_s, 500);
 var timer2 = null;
 var ind = 0;
 
@@ -73,7 +73,7 @@ function callHome_30_s() {
 
 
 function render() {
-	if (ind < 0) {
+	if (ind <= 0) {
 		clearInterval(timer2)
 	}
 	else {
