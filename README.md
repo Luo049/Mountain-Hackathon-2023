@@ -2,7 +2,8 @@
 steps to run our app
 1. git clone https://github.com/Luo049/Mountain-Hackathon-2023.git
 2. Set up .env with PORT = 5010 and CHAT_API_KEY = [obtain key through openai] inside chatgpt-nodejs folder.
-3. Go to chrome://extensions/ in Chrome and ensure that developer settings is enabled. Select unpack only and select the extensions folder to install chrome
+3. To obtain OpenAI key: https://elephas.app/blog/how-to-create-openai-api-keys-cl5c4f21d281431po7k8fgyol0
+4. Go to chrome://extensions/ in Chrome and ensure that developer settings is enabled. Select unpack only and select the extensions folder to install chrome
 extension.
 4. In terminal, make sure you are in Mountain-Hackathon-2023. Then cd to chatgpt-nodejs and run node chat.js in one terminal, and node translation_server/main.js_in another terminal.
 5. In chrome, pin the "Bear" chrome extension and click on it to see two options (a text box and mood selector). Enter something into the text box, select a mood and click Enter.
