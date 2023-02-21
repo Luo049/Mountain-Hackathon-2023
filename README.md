@@ -1,7 +1,7 @@
 # Mountain-Hackathon-2023
 steps to run our app
 1. git clone https://github.com/Luo049/Mountain-Hackathon-2023.git
-2. Set up .env with PORT = 5010 and CHAT_API_KEY = <key provided> inside chatgpt-nodejs folder.
+2. Set up .env with PORT = 5010 and CHAT_API_KEY = [obtain key through openai] inside chatgpt-nodejs folder.
 3. Go to chrome://extensions/ in Chrome and ensure that developer settings is enabled. Select unpack only and select the extensions folder to install chrome
 extension.
 4. In terminal, make sure you are in Mountain-Hackathon-2023. Then cd to chatgpt-nodejs and run node chat.js in one terminal, and node translation_server/main.js_in another terminal.
